@@ -15,8 +15,13 @@ export class SqlAnalyzer {
       const realQuery = `
        select * from (
          ${query}
-       ) q where true = false`;
+       ) q where true = false;
+`;
+
+    await this.client.query({text: 'BEGIN', rowMode:'array'});
     const res = await this.client.query({text: realQuery, rowMode:'array'});
+    await this.client.query({text: 'ROLLBACK', rowMode:'array'});
+    console.log({res});
     const fields = await Promise.all(res.fields.map(
       async field => ({
       name: field.name,

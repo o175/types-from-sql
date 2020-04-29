@@ -6,6 +6,7 @@
     },
   "scripts": {
     "build": "tsc --project tsconfig.json",
+    "generate": "ts-node ./index.ts",
     "prepack": "tsc --project tsconfig.json"
   },
   "files": [
