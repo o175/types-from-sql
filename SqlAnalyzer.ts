@@ -11,7 +11,7 @@ export interface IField {
 
 export class SqlAnalyzer {
   constructor( public client: Client) {}
-  async getInterface(query: string) {
+  async getInterface(query: string, forceInterfaceName?: string) {
       const realQuery = `
        select * from (
          ${query}
@@ -28,7 +28,7 @@ export class SqlAnalyzer {
       nullable: (await this.nullabilityDataLoader.load(field))
     }))) .then(fields=>
       fields.reduce((map, field)=>({...map, [field.name]: field } ), {}))
-    return generateInterface(this.getInterfaceName(query), fields);
+    return generateInterface(forceInterfaceName || this.getInterfaceName(query), fields);
   }
 
   getInterfaceName(query: string) {
