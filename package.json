@@ -15,7 +15,7 @@
   "main": "index.js",
   "author": "Wit <o175@ya.ru>",
   "license": "MIT",
-  "keywords": ["posgres", "sql", "type", "interface", "generator"],
+  "keywords": ["postgres", "sql", "type", "interface", "generator"],
   "dependencies": {
     "@types/lodash": "^4.14.150",
     "@types/pg": "^7.14.3",
