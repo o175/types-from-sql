@@ -1,6 +1,6 @@
 {
   "name": "types-from-sql",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "bin": {
     "types-from-sql": "./pkg/index.js"
   },
@@ -15,7 +15,13 @@
   "main": "index.js",
   "author": "Wit <o175@ya.ru>",
   "license": "MIT",
-  "keywords": ["postgres", "sql", "type", "interface", "generator"],
+  "keywords": [
+    "postgres",
+    "sql",
+    "type",
+    "interface",
+    "generator"
+  ],
   "dependencies": {
     "@types/lodash": "^4.14.150",
     "@types/pg": "^7.14.3",
