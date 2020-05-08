@@ -3,6 +3,7 @@ import { generateInterface } from './printInterface';
 import { resolveTypeId } from './resolveTypeId'
 import _ from 'lodash';
 import DataLoader from 'dataloader';
+import toCammel from 'camelcase-keys';
 
 export interface IField {
   columnID: number,
@@ -10,7 +11,7 @@ export interface IField {
 }
 
 export class SqlAnalyzer {
-  constructor( public client: Client) {}
+  constructor(public client: Client, private transformToCamelcase=false) {}
   async getInterface(query: string, forceInterfaceName?: string) {
       const realQuery = `
        select * from (
@@ -28,7 +29,7 @@ export class SqlAnalyzer {
       nullable: (await this.nullabilityDataLoader.load(field))
     }))) .then(fields=>
       fields.reduce((map, field)=>({...map, [field.name]: field } ), {}))
-    return generateInterface(forceInterfaceName || this.getInterfaceName(query), fields);
+    return generateInterface(forceInterfaceName || this.getInterfaceName(query), this.transformToCamelcase? toCammel(fields): fields );
   }
 
   getInterfaceName(query: string) {
@@ -56,7 +57,3 @@ export class SqlAnalyzer {
   })
 
 }
-
-
-
-

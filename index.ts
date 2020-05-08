@@ -8,6 +8,7 @@ import {basename, extname} from 'path';
 
 program
     .option('-f, --files', 'specify file patterns containing sql')
+    .option('-c, --cammelize', 'set interface properties to cammelCase')
     .option('-fn, --files-named', 'specify file patterns containing sql, set interface name from file name')
 
 program.parse(process.argv)
@@ -25,7 +26,7 @@ if(program.files || program.filesNamed) {
 (async()=>{
   const client = new pg.Client();
   await client.connect();
-  const analyzer = new SqlAnalyzer(client);
+  const analyzer = new SqlAnalyzer(client, !!program.cammelize);
 
   for (const e of sqls){
     const generated = await analyzer.getInterface(e.sql, e.interfaceName);
