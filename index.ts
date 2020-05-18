@@ -10,6 +10,7 @@ program
     .option('-f, --files', 'specify file patterns containing sql')
     .option('-c, --cammelize', 'set interface properties to cammelCase')
     .option('-fn, --files-named', 'specify file patterns containing sql, set interface name from file name')
+    .option('--out-dir <dir>', 'specify directory to write each interface in separate file')
 
 program.parse(process.argv)
 
@@ -29,7 +30,7 @@ if(program.files || program.filesNamed) {
   const analyzer = new SqlAnalyzer(client, !!program.cammelize);
 
   for (const e of sqls){
-    const generated = await analyzer.getInterface(e.sql, e.interfaceName);
+    const generated = await analyzer.getInterface(e.sql, e.interfaceName, program.outDir);
     console.log(generated);
   }
   process.exit();

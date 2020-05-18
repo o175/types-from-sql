@@ -1,6 +1,6 @@
 {
   "name": "types-from-sql",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "bin": {
     "types-from-sql": "./pkg/index.js"
   },

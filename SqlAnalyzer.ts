@@ -12,7 +12,7 @@ export interface IField {
 
 export class SqlAnalyzer {
   constructor(public client: Client, private transformToCamelcase=false) {}
-  async getInterface(query: string, forceInterfaceName?: string) {
+  async getInterface(query: string, forceInterfaceName?: string, outPath?:string) {
       const realQuery = `
        select * from (
          ${query}
@@ -29,7 +29,11 @@ export class SqlAnalyzer {
       nullable: (await this.nullabilityDataLoader.load(field))
     }))) .then(fields=>
       fields.reduce((map, field)=>({...map, [field.name]: field } ), {}))
-    return generateInterface(forceInterfaceName || this.getInterfaceName(query), this.transformToCamelcase? toCammel(fields): fields );
+    return generateInterface(
+      forceInterfaceName || this.getInterfaceName(query),
+      this.transformToCamelcase? toCammel(fields): fields,
+      outPath
+    );
   }
 
   getInterfaceName(query: string) {
