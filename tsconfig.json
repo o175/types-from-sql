@@ -2,8 +2,8 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "noImplicitAny": true,
-      "module": "commonjs",
-      "allowSyntheticDefaultImports": true,
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "pretty": true,
     "types": ["node"],
@@ -16,11 +16,8 @@
     "emitDecoratorMetadata": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-       "paths": {
-            "*": [
-                "node_modules/*",
-                "./*"
-            ]
-        }
+    "paths": {
+      "*": ["node_modules/*", "./*"]
+    }
   }
 }

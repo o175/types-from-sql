@@ -1,8 +1,11 @@
+import { wrapDebugger } from './debug'
+import { FieldDef } from 'pg'
+
 enum EType {
   boolean = 'boolean',
   string = 'string',
   number = 'number',
-  Date = 'Date'
+  Date = 'Date',
 }
 
 const map = {
@@ -25,6 +28,7 @@ const map = {
   1082: EType.Date,
   1114: EType.Date,
   1184: EType.Date,
-} as {[K: number]: string}
+} as { [K: number]: string }
 
-export const resolveTypeId =  (id: number) => map[id] ?? 'unknown';
+const _resolveTypeId = (field: FieldDef) => map[field.dataTypeID] ?? 'unknown'
+export const resolveTypeId = wrapDebugger(_resolveTypeId)

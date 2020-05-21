@@ -5,6 +5,9 @@
     "types-from-sql": "./pkg/index.js"
   },
   "scripts": {
+    "prettier": "prettier --write ./*.{ts,json}",
+    "whitespaces": "trailing-whitespaces ./*.ts",
+    "pre-commit": "yarn prettier && yarn whitespaces",
     "build": "tsc --project tsconfig.json",
     "generate": "ts-node ./index.ts",
     "prepack": "tsc --project tsconfig.json"
@@ -25,17 +28,21 @@
   "dependencies": {
     "@types/lodash": "^4.14.150",
     "@types/pg": "^7.14.3",
+    "@types/pino": "^6.0.1",
     "camelcase-keys": "^6.2.2",
+    "chokidar": "^3.4.0",
     "commander": "^5.1.0",
     "data-loader": "^2.9.1",
     "dataloader": "^2.0.0",
     "fast-glob": "^3.2.2",
     "lodash": "^4.17.15",
     "node-postgres": "^0.1.4",
-    "p-reduce": "^2.1.0",
-    "pg": "^8.0.3"
+    "pg": "^8.0.3",
+    "pino": "^6.2.1"
   },
   "devDependencies": {
+    "prettier": "^2.0.5",
+    "trailing-whitespaces": "^1.0.7",
     "ts-node": "^8.9.1",
     "typescript": "^3.8.3"
   }
