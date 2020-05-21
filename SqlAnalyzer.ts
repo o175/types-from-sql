@@ -24,8 +24,12 @@ export class SqlAnalyzer {
 `
 
     await this.client.query({ text: 'BEGIN', rowMode: 'array' })
-    const res = await this.client.query({ text: realQuery, rowMode: 'array' })
-    await this.client.query({ text: 'ROLLBACK', rowMode: 'array' })
+    const res = await this.client
+      .query({ text: realQuery, rowMode: 'array' })
+      .finally(
+        async () =>
+          await this.client.query({ text: 'ROLLBACK', rowMode: 'array' })
+      )
     const fields = await Promise.all(
       res.fields.map(async (field) => ({
         name: field.name,

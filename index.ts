@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import * as pg from 'pg'
+import _ from 'lodash'
 import { SqlAnalyzer } from './SqlAnalyzer'
 import { program } from 'commander'
 import { sync } from 'fast-glob'
@@ -96,10 +97,16 @@ class Runner {
   await runner.run(filenames)
 
   if (program.watch) {
-    chokidar.watch(filenames).on('all', async () => {
-      const newFilenames = sync(program.args, { unique: true })
-      await runner.run(newFilenames)
-    })
+    chokidar.watch(filenames).on(
+      'all',
+      _.debounce(async () => {
+        const newFilenames = sync(program.args, { unique: true })
+        const newClient = new pg.Client()
+        await newClient.connect()
+        analyzer.client = newClient
+        await runner.run(newFilenames)
+      }, 1000)
+    )
   } else {
     process.exit()
   }
