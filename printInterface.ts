@@ -13,7 +13,7 @@ ${Object.entries(fields)
     ([key, typename]) =>
       `  ${key}${typename.nullable ? '?' : ''}: ${typename.dataTypeName}`
   )
-  .join(',\n')}
+  .join(';\n')}
 }
 `
 

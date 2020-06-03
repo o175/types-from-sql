@@ -1,6 +1,7 @@
 {
   "name": "types-from-sql",
-  "version": "1.0.9",
+  "version": "1.0.10",
+  "repository": "git@github.com:o175/types-from-sql.git",
   "bin": {
     "types-from-sql": "./pkg/index.js"
   },
