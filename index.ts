@@ -59,10 +59,12 @@ class Runner {
       logger.debug('output to single file')
       const stream = createWriteStream(this.outFile!)
       for (let filename of files) {
-        const generated = await this.getInterfaceForFile(filename)
-        await new Promise((resolve) => {
-          stream.write(generated.interface, resolve)
-        })
+        try {
+          const generated = await this.getInterfaceForFile(filename)
+          await new Promise((resolve) => {
+            stream.write(generated.interface, resolve)
+          })
+        } catch {}
       }
       const done = new Promise((resolve, reject) => {
         stream.on('finish', resolve)
